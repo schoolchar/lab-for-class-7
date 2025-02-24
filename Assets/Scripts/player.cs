@@ -4,21 +4,41 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    private CharacterController characterController;
-
-    public float speed = 5f;
-
+    //variables
+    public float moveSpeed;
+    public Transform orientation;
+    float hInput;
+    float vInput;
+    Vector3 moveDirection;
+    Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        inputs();
+    }
 
-        characterController.Move(move * Time.deltaTime * speed);
+    private void FixedUpdate()
+    {
+        moving();
+    }
+
+    private void inputs()
+    {
+        hInput = Input.GetAxisRaw("Horizontal");
+        vInput = Input.GetAxisRaw("Vertical");
+    }
+
+    private void moving()
+    {
+        moveDirection = orientation.forward * vInput + orientation.right * hInput;
+
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
 }
