@@ -1330,7 +1330,7 @@ GameObject:
   - component: {fileID: 1369545222}
   - component: {fileID: 1369545221}
   m_Layer: 0
-  m_Name: face
+  m_Name: face to show direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
